@@ -15,18 +15,22 @@ app.use(bodyParser.json());
 
 const compiler = webpack(webpackConfig);
 
-app.use(express.static(__dirname + './src'));
+app.use(express.static(__dirname + './public'));
 app.use(webpackMiddleware(compiler, {
   hot: true,
+  contentBase: './public/',
+  serverSideRender: true,
   stats: {
     colors: true
   },
+  filename: webpackConfig.output.filename,
+  publicPath: webpackConfig.output.publicPath,
   noInfo: false
 }));
 
 app.get('/*', (req, res) => {
   // res.send('Hello World');
-  res.sendFile(path.join(__dirname, './src/index.html'));
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.listen(3000, () => console.log('Running on localhost:3000'));
+app.listen(5000, () => console.log('Running on localhost:5000'));

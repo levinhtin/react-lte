@@ -1,6 +1,10 @@
 import {combineReducers} from 'redux';
 import {userReducers} from './userReducers';
+import {authentication} from './authentication';
 
-export const rootReducer = combineReducers({
-  userReducers
+let rootReducer = combineReducers({
+  userReducers,
+  authentication
 });
+
+export {rootReducer};

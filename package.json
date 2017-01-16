@@ -4,9 +4,11 @@
   "description": "Admin by reactjs and LTE template",
   "main": "index.js",
   "scripts": {
-    "server": "node_modules/.bin/nodemon --watch server --exec babel-node -- server.js --config webpack.conf.js --inline --hot --progress --colors",
-    "test": "node_modules/.bin/eslint \"./src\"",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress"
+    "server": "node_modules/.bin/nodemon --watch server --exec babel-node -- server.js --inline --hot --progress --colors",
+    "start": "cross-env NODE_ENV=production nodemon --watch server --exec babel-node -- serverprd.js --inline --hot --progress --colors",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.conf.babel.js --inline --hot --progress --colors",
+    "test": "node_modules/.bin/eslint \"./src\" --ext .js --ext .jsx --color",
+    "build": "cross-env NODE_ENV=production webpack -p --progress --config webpack.conf.babel.js"
   },
   "author": "levinhtin",
   "license": "ISC",
@@ -14,6 +16,7 @@
     "axios": "^0.15.3",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "jwt-decode": "^2.1.0",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
     "react-cookie": "^1.0.4",
@@ -30,6 +33,7 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "eslint": "^3.13.1",
     "eslint-plugin-react": "^6.9.0",
@@ -42,6 +46,7 @@
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
-    "webpack-dev-middleware": "^1.9.0"
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }

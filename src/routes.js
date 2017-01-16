@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-
-import App from './components/app';
-import {SignupPage, SigninPage, DashboardPage} from './components/pages';
+// import requireAuth from 'utils/requireAuth';
+import App from 'components/app';
+import {SignupPage, SigninPage, DashboardPage, UsersPage} from 'components/pages';
 
 
 const routes = [
@@ -13,6 +13,10 @@ const routes = [
       component: DashboardPage
     },
     childRoutes: [
+      {
+        path: 'users',
+        component: UsersPage
+      },
       {
         path: 'signin',
         component: SigninPage

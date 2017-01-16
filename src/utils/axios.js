@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export default function customFetch(url, option) {
-  return axios(url, option);
+export default function customFetch(config) {
+  return axios(config);
 }

@@ -1,30 +1,29 @@
 import React from 'react';
 import {Header, Footer, Aside, Main} from 'components/layouts/partials';
+import {DashboardAppClass} from 'constants/appClass';
 
 class MasterLayout extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.getHeightWrapper = this.getHeightWrapperHandler.bind(this);
+    document.body.className = DashboardAppClass;
   }
 
   getHeightWrapperHandler() {
-    return '800px';
+    return { height: window.innerHeight + 'px' };
+  }
+
+  changeAppClass(className) {
+    console.log('Class', className);
   }
 
   render() {
     const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {}));
-    console.log(childrenWithProps);
-    const styleHeight = {
-      height: '800px'
-    };
-    const that = this;
 
     return (
       <div className="wrapper">
         <Header/>
         <Aside/>
-        <div className="content-wrapper" style={styleHeight}>
-          Hello {that.getHeightWrapper}
+        <div className="content-wrapper" style={this.getHeightWrapperHandler()}>
           {childrenWithProps}
         </div>
         <Footer/>

@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from 'constants/actionTypes';
 import isEmpty from 'lodash/isEmpty';
 import cookie from 'react-cookie';
 
@@ -33,8 +33,11 @@ export function userReducers(state = initialState, action) {
     case types.ERROR:
       return {
         data: action.payload
-      }
+      };
     default:
       return state;
   }
 }
+
+export const getUser = state =>
+  state.visibleIds.map(id => getProduct(state, id))

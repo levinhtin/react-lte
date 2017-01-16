@@ -9,6 +9,11 @@ import routes from './routes';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+}
+
 render(
   <Provider store={store}>
     <Router history={browserHistory} routes={routes}/>

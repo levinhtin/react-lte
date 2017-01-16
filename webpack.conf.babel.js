@@ -4,12 +4,12 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 //Development Mode
-//Be sure to invoke Webpack as env NODE_ENV=production webpack -p when building your production assets.
-const DEBUG = process.env.NODE_ENV !== 'production';
+//Be sure to invoke Webpack as env NODE_ENV=development webpack -p when building your development assets.
+const ENV = process.env.NODE_ENV || 'development';
 
 let config = {
-  debug: DEBUG ? true : false,
-  devtool: DEBUG ? 'cheap-module-eval-source-map' : 'hidden-source-map',
+  debug: ENV == 'development' ? true : false,
+  devtool: ENV ? 'cheap-module-eval-source-map' : 'hidden-source-map',
   entry: [
     './src/index.js',
     './src/assets/css/AdminLTE.css',
@@ -18,9 +18,9 @@ let config = {
   output: {
     path: path.join(__dirname, '/'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: ENV !== 'development' ? '/public/' : '/'
   },
-  plugins: [
+  plugins:([
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new ExtractTextPlugin('style.css', {allChunks: true}),
@@ -30,7 +30,11 @@ let config = {
         collapseWhitespace: true
       }
     })
-  ],
+  ]).concat(ENV == 'production'
+    ? [
+      new webpack.optimize.OccurenceOrderPlugin()
+    ]
+    : []),
   module: {
     loaders: [
       {
@@ -63,6 +67,17 @@ let config = {
       'utils': path.resolve(__dirname, './src/utils'),
       'reducers': path.resolve(__dirname, './src/reducers')
     }
+  },
+  devtool: ENV == 'development'
+    ? 'source-map'
+    : 'source-map',
+  devServer: {
+    port: 3000,
+    host: '0.0.0.0',
+    colors: true,
+    publicPath: '/',
+    contentBase: './',
+    historyApiFallback: true
   }
 };
 

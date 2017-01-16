@@ -3,6 +3,9 @@ import {MasterLayout} from 'components/layouts';
 import {ContentHeader} from 'components/elements';
 
 class DashboardPage extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
   render() {
     return (
       <MasterLayout>
