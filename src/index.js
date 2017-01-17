@@ -6,8 +6,13 @@ import thunk from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
 import {rootReducer} from './reducers';
 import routes from './routes';
+import setAuthorizationToken from 'utils/setAuthorizationToken';
+import {setCurrentUser} from 'actions/userActions';
+import jwtDecode from 'jwt-decode';
+import {createHistory} from 'history';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
+
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);

@@ -1,7 +1,5 @@
 //Authentication
-export const SIGNIN = 'SIGNIN';
-export const SIGNUP = 'SIGNUP';
-export const LOGOUT = 'LOGOUT';
-export const ERROR = 'ERROR';
-
+export const AUTHENTICATION_LOGIN = 'AUTHENTICATION_LOGIN';
+export const AUTHENTICATION_SIGNUP = 'AUTHENTICATION_SIGNUP';
+export const AUTHENTICATION_LOGOUT = 'AUTHENTICATIONLOGOUT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';

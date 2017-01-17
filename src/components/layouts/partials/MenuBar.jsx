@@ -34,7 +34,7 @@ class MenuBar extends React.Component {
             <li><a href="pages/layout/collapsed-sidebar.html"><i className="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
           </ul>
         </li>
-        <NavLink to="/users">
+        <NavLink to="users">
             <i className="glyphicon glyphicon-user"></i> <span>Users</span>
         </NavLink>
         <li><a href="documentation/index.html"><i className="fa fa-book"></i> <span>Documentation</span></a></li>

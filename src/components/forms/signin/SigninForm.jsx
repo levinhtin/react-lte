@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {login} from 'actions/userActions';
-import {login} from 'reducers/userReducers';
+import {bindActionCreators} from 'redux';
+import * as userActions from 'actions/userActions';
 
 class SigninForm extends React.Component {
-  constructor(props, context) {
-    super(props, context)
+  constructor(props) {
+    super(props);
     this.state = {
       username: '',
       password: ''
@@ -15,15 +15,11 @@ class SigninForm extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  mapStateToProps() {
-    this.props.user = React.P
-  }
-
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.props.login);
     this.props.login(this.state).then(res => {
-      console.log(this.props);
+      console.log(res);
+      this.context.router.push('/');
     }).catch(err => {
       console.log(err);
     });
@@ -61,8 +57,27 @@ class SigninForm extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.authentication.user,
+    isAuthenticated: state.authentication.isAuthenticated
+  };
+};
+
+const mapDispatchToProps = (dispatcher) => {
+  return {
+    login: bindActionCreators(userActions.login, dispatcher)
+  };
+};
+
 SigninForm.propTypes = {
   login: React.PropTypes.func.isRequired,
-  user: React.PropTypes.object
-}
-export default connect(user, {login})(SigninForm); 
+  user: React.PropTypes.object,
+  isAuthenticated: React.PropTypes.bool
+};
+
+SigninForm.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SigninForm); 

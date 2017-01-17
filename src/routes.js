@@ -1,16 +1,15 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-// import requireAuth from 'utils/requireAuth';
+import requireAuth from 'utils/requireAuth';
 import App from 'components/app';
 import {SignupPage, SigninPage, DashboardPage, UsersPage} from 'components/pages';
-
 
 const routes = [
   {
     path: '/',
     component: App,
     indexRoute: {
-      component: DashboardPage
+      component: requireAuth('sigin', DashboardPage, ['Admin', 'Manager', 'Memember'])
     },
     childRoutes: [
       {

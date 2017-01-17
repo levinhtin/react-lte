@@ -9,20 +9,19 @@ const initialState = {
   user: userInfo || null
 };
 
-export function userReducers(state = initialState, action) {
-  console.log('UserReducers');
+export function user(state = initialState, action) {
   switch (action.type) {
-    case types.SIGNIN:
+    case types.AUTHENTICATION_LOGIN:
       return {
         isAuthenticated: true,
         user: action.user
       };
-    case types.SIGNUP:
+    case types.AUTHENTICATION_SIGNUP:
       return {
         isAuthenticated: false,
         data: action.payload
       };
-    case types.LOGOUT:
+    case types.AUTHENTICATION_LOGOUT:
       localStorage.removeItem('userInfo');
       cookie.remove('accessToken', {path: '/'});
 
@@ -38,6 +37,3 @@ export function userReducers(state = initialState, action) {
       return state;
   }
 }
-
-export const getUser = state =>
-  state.visibleIds.map(id => getProduct(state, id))

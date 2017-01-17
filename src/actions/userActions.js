@@ -4,6 +4,7 @@ import {API_URL} from 'constants/config.dev'
 import * as types from 'constants/actionTypes';
 import querystring from 'querystring';
 import jwtDecode from 'jwt-decode';
+import setAuthorizationToken from 'utils/setAuthorizationToken';
 
 export function setCurrentUser(user) {
   return {
@@ -28,7 +29,13 @@ export function signup(user) {
 export function login(user) {
   return (dispatch) => {
     return axios.post(API_URL + '/authentication', querystring.stringify(user)).then(res => {
-      dispatch(setCurrentUser(jwtDecode(res.data.access_token)));
+      const token = res.data.access_token;
+      localStorage.setItem('jwtToken', token);
+      setAuthorizationToken(token);
+      dispatch(setCurrentUser(jwtDecode(token)));
+      return res;
+    }).catch(err => {
+      throw err;
     });
   };
 }

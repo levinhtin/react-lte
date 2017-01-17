@@ -9,7 +9,7 @@ class MasterLayout extends React.Component {
   }
 
   getHeightWrapperHandler() {
-    return { height: window.innerHeight + 'px' };
+    return {height: window.innerHeight + 'px'};
   }
 
   changeAppClass(className) {
