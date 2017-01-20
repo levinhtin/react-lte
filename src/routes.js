@@ -9,7 +9,7 @@ const routes = [
     path: '/',
     component: App,
     indexRoute: {
-      component: requireAuth('sigin', DashboardPage, ['Admin', 'Manager', 'Memember'])
+      component: requireAuth('signin', DashboardPage, ['Admin', 'Manager', 'Memember'])
     },
     childRoutes: [
       {

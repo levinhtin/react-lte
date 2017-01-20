@@ -20,6 +20,8 @@ export default function(authUrl, ComposedComponent, requiredRoles) {
       }
     }
 
+    isCurrentUserInRoles
+
     render() {
       return (
         <ComposedComponent {...this.props} />
