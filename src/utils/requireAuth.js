@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addFlashMessage} from 'actions/flashMessages';
+import { addFlashMessage } from 'actions/flashMessages';
 
 export default function(authUrl, ComposedComponent, requiredRoles) {
   class Authenticate extends React.Component {
@@ -9,6 +9,12 @@ export default function(authUrl, ComposedComponent, requiredRoles) {
         this.props.addFlashMessage({
           type: 'error',
           text: 'You need to login to access this page'
+        });
+        this.context.router.push(authUrl);
+      } else if (!this.hasPermission(requiredRoles)) {
+        this.props.addFlashMessage({
+          type: 'error',
+          text: 'You dont have permission to access this page'
         });
         this.context.router.push(authUrl);
       }
@@ -20,7 +26,12 @@ export default function(authUrl, ComposedComponent, requiredRoles) {
       }
     }
 
-    isCurrentUserInRoles
+    hasPermission(requiredRoles) {
+      let userRoles = this.props.roles;
+      let inRoles = requiredRoles.filter(requiredRole => requiredRole === userRoles.find(userRole => requiredRole === userRole));
+
+      return inRoles.length > 0;
+    }
 
     render() {
       return (
@@ -31,6 +42,7 @@ export default function(authUrl, ComposedComponent, requiredRoles) {
 
   Authenticate.propTypes = {
     isAuthenticated: React.PropTypes.bool.isRequired,
+    roles: React.PropTypes.array.isRequired,
     addFlashMessage: React.PropTypes.func.isRequired
   };
 
@@ -40,7 +52,8 @@ export default function(authUrl, ComposedComponent, requiredRoles) {
 
   function mapStateToProps(state) {
     return {
-      isAuthenticated: state.authentication.isAuthenticated
+      isAuthenticated: state.authentication.isAuthenticated,
+      roles: JSON.parse(state.authentication.user.roles)
     };
   }
 
